@@ -1,6 +1,5 @@
-(function (window) {
-	'use strict';
-
-	// Your starting point. Enjoy the ride!
-
-})(window);
+(function (angular) {
+	//'use strict';
+    angular.module('todoApp',['dataDealService','todoController']);
+    console.log('app.js end');
+})(angular);

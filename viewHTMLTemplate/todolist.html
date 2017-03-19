@@ -1,0 +1,38 @@
+<header class="header">
+    <h1>任务清单</h1>
+    <form ng-submit="addTask();updateAllfinishStatus()">
+        <input class="new-todo" placeholder="请输入任务?" autofocus ng-model="newTask">
+    </form>
+</header>
+<section class="main">
+    <input class="toggle-all" type="checkbox" ng-model="isAllCompletedFlag" ng-click="isAllCompleted()">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list">
+
+        <li ng-class="{completed:task.isCompleted,editing:editingId===task.id}" ng-repeat="task in taskList |filter:{isCompleted:status} track by $index">
+            <div class="view">
+                <input class="toggle" type="checkbox" ng-model="task.isCompleted" ng-click="saveCompleteStatus();updateAllfinishStatus()">
+                <label ng-dblclick="editing(task.id)">{{task.name}}</label>
+                <button class="destroy" ng-click="removeTask(task.id);updateAllfinishStatus()"></button>
+            </div>
+            <form ng-submit="updateTask(task.id,updateName)">
+            <input class="edit" value="{{task.name}}" ng-model="updateName">
+            </form>
+        </li>
+    </ul>
+</section>
+<footer class="footer">
+    <span class="todo-count"><strong ng-bind="getUnCompletedTasks()"></strong> item left</span>
+    <ul class="filters">
+        <li>
+            <a ng-class="{selected:status===undefined}"  href="#!/all" ng-click="getAllTasks()">All</a>
+        </li>
+        <li>
+            <a ng-class="{selected:status===false}" href="#!/active" ng-click="getActiveTasks()">Active</a>
+        </li>
+        <li>
+            <a ng-class="{selected:status===true}" href="#!/Completed" ng-click="getCompletedTasks()">Completed</a>
+        </li>
+    </ul>
+    <button class="clear-completed" ng-show="needShow()" ng-click="removeCompletedTasks()">Clear completed</button>
+</footer>
